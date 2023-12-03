@@ -9,6 +9,7 @@ const {
   getCurrentDate,
 } = require("./globalFunctions");
 const cron = require("node-cron");
+const fs = require("fs");
 
 const app = express();
 const port = 3000;
@@ -20,10 +21,11 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root12345",
+  host: "childcare.mysql.database.azure.com",
+  user: "vivek",
+  password: "Childcare1",
   database: "childcare",
+  ssl: { ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem") },
 });
 
 connection.connect((err) => {
