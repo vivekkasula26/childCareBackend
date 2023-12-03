@@ -1135,6 +1135,8 @@ app.post("/update_child_information", (req, res) => {
   );
 });
 
+connection.end();
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
