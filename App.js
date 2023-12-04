@@ -21,11 +21,10 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 const connection = mysql.createConnection({
-  host: "childcare.mysql.database.azure.com",
-  user: "vivek",
-  password: "Childcare1",
+  host: "35.193.177.25",
+  user: "root",
+  password: "root123",
   database: "childcare",
-  ssl: { ca: fs.readFileSync("./DigiCertGlobalRootCA.crt.pem") },
 });
 
 connection.connect((err) => {
