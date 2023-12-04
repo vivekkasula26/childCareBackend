@@ -21,9 +21,9 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 const connection = mysql.createConnection({
-  host: "35.193.177.25",
+  host: "localhost",
   user: "root",
-  password: "root123",
+  password: "root12345",
   database: "childcare",
 });
 
@@ -788,6 +788,8 @@ GROUP BY s.ID;
 `;
 
   connection.query(query, (err, result) => {
+    if (err) {
+    }
     res.json({
       success: true,
       data: result,
@@ -1133,8 +1135,6 @@ app.post("/update_child_information", (req, res) => {
     }
   );
 });
-
-connection.end();
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
