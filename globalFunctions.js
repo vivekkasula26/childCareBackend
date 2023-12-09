@@ -19,7 +19,7 @@ function checkDOB(dob) {
 
 function checkAvailability(ageGroup, connection) {
   return new Promise((resolve, reject) => {
-    let capacityQuery = "SELECT Capacity FROM Classroom WHERE ClassName=?";
+    let capacityQuery = "SELECT Capacity FROM classroom WHERE ClassName=?";
 
     connection.query(capacityQuery, [ageGroup], (error, capacityResults) => {
       if (error) {

@@ -27,7 +27,7 @@ function checkLogin(connection, query, req, res) {
 
 function recordAttendance(data, connection, response, signout = false) {
   connection.query(
-    "SELECT * FROM STAFF WHERE email=?",
+    "SELECT * FROM staff WHERE email=?",
     [data.email],
     (er, res) => {
       const currentDate = getCurrentDate();
