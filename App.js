@@ -97,7 +97,7 @@ app.post("/enroll_child", checkUserRole(["Admin"]), (req, res) => {
     }
 
     if (data.waitlistID) {
-      const query = "DELETE FROM WAITLIST WHERE ID=?";
+      const query = "DELETE FROM waitlist WHERE ID=?";
 
       connection.query(query, [data.waitlistID], (error, results) => {
         if (error) {
@@ -235,7 +235,7 @@ app.post("/withdraw_child", checkUserRole(["Admin"]), (req, res) => {
   const isWaitlist = req.body.isWaitlist;
 
   if (isWaitlist) {
-    const query = "DELETE FROM WAITLIST WHERE ID=?";
+    const query = "DELETE FROM waitlist WHERE ID=?";
 
     connection.query(query, [enrollmentID], (error, results) => {
       if (error) {
