@@ -189,7 +189,7 @@ app.get(
       P.invite
     FROM Enrollment E
     JOIN Child C ON E.ChildID = C.ChildID
-    JOIN Parent P ON C.ChildID = P.ChildID
+    JOIN parent P ON C.ChildID = P.ChildID
   `;
 
     if (email) {
