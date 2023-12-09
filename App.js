@@ -21,9 +21,9 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "35.193.177.25",
   user: "root",
-  password: "root12345",
+  password: "root123",
   database: "childcare",
 });
 
