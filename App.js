@@ -187,7 +187,7 @@ app.get(
       P.PhoneNumber,
       P.Address,
       P.invite
-    FROM enrollment E
+    FROM Enrollment E
     JOIN Child C ON E.ChildID = C.ChildID
     JOIN Parent P ON C.ChildID = P.ChildID
   `;
