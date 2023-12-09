@@ -320,7 +320,7 @@ app.post("/enroll_child_waitlist", checkUserRole(["Admin"]), (req, res) => {
   data["AgeGroup"] = ageGroup;
 
   const waitlistQuery =
-    "INSERT INTO Waitlist (FirstName, LastName, ParentFirstName, ParentLastName, DOB, AgeGroup, Address, Allergies, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    "INSERT INTO waitlist (FirstName, LastName, ParentFirstName, ParentLastName, DOB, AgeGroup, Address, Allergies, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   connection.query(
     waitlistQuery,
