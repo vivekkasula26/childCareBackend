@@ -249,7 +249,7 @@ app.post("/withdraw_child", checkUserRole(["Admin"]), (req, res) => {
   } else {
     const query = "DELETE FROM Child WHERE ChildID = ?";
     const query1 = "DELETE FROM parent WHERE ParentID = ?";
-    const query2 = "DELETE FROM enrollment WHERE EnrollmentID = ?";
+    const query2 = "DELETE FROM Enrollment WHERE EnrollmentID = ?";
 
     connection.query(query2, [enrollmentID], (error, results) => {
       if (error) {
@@ -866,7 +866,7 @@ app.get("/get_assigned_enrolled_children", (req, res) => {
       P.Address,
       SA.SignInTime,
       SA.SignOutTime
-    FROM enrollment E
+    FROM Enrollment E
     JOIN Child C ON E.ChildID = C.ChildID
     JOIN parent P ON C.ChildID = P.ChildID
     LEFT JOIN studentAttendance SA ON C.ChildID = SA.childID AND DATE(SA.SignInTime) = CURRENT_DATE
