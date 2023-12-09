@@ -121,7 +121,7 @@ app.post("/enroll_child", checkUserRole(["Admin"]), (req, res) => {
         }
 
         let query_parent =
-          "INSERT INTO Parent(ParentID,ChildID, ParentFirstName, ParentLastName, PhoneNumber, Address,email) VALUES (?,?, ?, ?, ?, ?,?)";
+          "INSERT INTO parent(ParentID,ChildID, ParentFirstName, ParentLastName, PhoneNumber, Address,email) VALUES (?,?, ?, ?, ?, ?,?)";
 
         connection.query(
           query_parent,
@@ -525,16 +525,16 @@ async function getStudentLedger(req, res) {
           Child.ChildID,
           Child.FirstName AS ChildFirstName,
           Child.LastName AS ChildLastName,
-          Parent.ParentFirstName AS ParentFirstName,
-          Parent.ParentLastName AS ParentLastName,
-          Parent.PhoneNumber AS PhoneNumber,
+          parent.ParentFirstName AS ParentFirstName,
+          parent.ParentLastName AS ParentLastName,
+          parent.PhoneNumber AS PhoneNumber,
           ledger.balance,
           ledger.totalPaid,
           DATE_FORMAT(ledger.GeneratedDate, '%m-%d-%Y') AS GeneratedDate
       FROM
           Child
       JOIN
-          Parent ON Child.ChildID = Parent.ChildID
+          parent ON Child.ChildID = parent.ChildID
       LEFT JOIN
           led AS ledger ON Child.ChildID = ledger.ChildID
     `;
@@ -868,7 +868,7 @@ app.get("/get_assigned_enrolled_children", (req, res) => {
       SA.SignOutTime
     FROM enrollment E
     JOIN Child C ON E.ChildID = C.ChildID
-    JOIN Parent P ON C.ChildID = P.ChildID
+    JOIN parent P ON C.ChildID = P.ChildID
     LEFT JOIN studentAttendance SA ON C.ChildID = SA.childID AND DATE(SA.SignInTime) = CURRENT_DATE
     ORDER BY E.EnrollmentDate DESC`;
     connection.query(query1, (req, enrollData) => {
