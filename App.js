@@ -247,7 +247,7 @@ app.post("/withdraw_child", checkUserRole(["Admin"]), (req, res) => {
       }
     });
   } else {
-    const query = "DELETE FROM child WHERE childID = ?";
+    const query = "DELETE FROM Child WHERE ChildID = ?";
     const query1 = "DELETE FROM parent WHERE ParentID = ?";
     const query2 = "DELETE FROM enrollment WHERE EnrollmentID = ?";
 
@@ -436,7 +436,7 @@ app.get(
       });
 
       connection.query(
-        "SELECT AgeGroup, COUNT(*) AS Count FROM child GROUP BY AgeGroup",
+        "SELECT AgeGroup, COUNT(*) AS Count FROM Child GROUP BY AgeGroup",
         (err, ageGroupCounts) => {
           if (err) {
             console.error("Error fetching child data:", err.stack);
@@ -932,7 +932,7 @@ app.get("/get_child_attendance", (req, res) => {
                     DATE_FORMAT(sa.SignInTime, '%Y-%m-%d') AS date,
                     DATE_FORMAT(sa.SignInTime, '%h:%i %p') AS SignInTime,
                     DATE_FORMAT(sa.SignOutTime, '%h:%i %p') AS SignOutTime
-             FROM child c
+             FROM Child c
              JOIN studentAttendance sa ON c.childID = sa.childID`;
 
     if (queryDate) {
@@ -945,7 +945,7 @@ app.get("/get_child_attendance", (req, res) => {
     currentDate = currentDate.toISOString().split("T")[0];
 
     query = `SELECT c.FirstName, c.LastName, c.AgeGroup, c.childID,? as AbsentDate
-             FROM child c
+             FROM Child c
              LEFT JOIN studentAttendance sa 
              ON c.childID = sa.childID AND DATE(sa.SignInTime) = ?
              WHERE sa.SignInTime IS NULL`;
@@ -1104,7 +1104,7 @@ app.get("/get_facility_information", (req, res) => {
 app.post("/update_child_information", (req, res) => {
   let payload = req.body;
   const updateChildQuery =
-    "UPDATE child SET FirstName = ?, LastName = ?, Allergies = ? WHERE childID = ?";
+    "UPDATE Child SET FirstName = ?, LastName = ?, Allergies = ? WHERE childID = ?";
   connection.query(
     updateChildQuery,
     [
