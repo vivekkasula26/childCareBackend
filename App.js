@@ -298,7 +298,7 @@ app.get("/get_classroom_enrollments", checkUserRole(["Admin"]), (req, res) => {
     CR.fees,
     COUNT(CH.AgeGroup) AS Occupied 
 FROM 
-    Classroom CR 
+    classroom CR 
 LEFT JOIN 
     Child CH ON CR.ClassName = CH.AgeGroup 
 GROUP BY 
