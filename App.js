@@ -279,7 +279,7 @@ app.post("/withdraw_child", checkUserRole(["Admin"]), (req, res) => {
 
 app.post("/withdraw_staff", checkUserRole(["Admin"]), (req, res) => {
   const staffID = req.body.ID.toString();
-  const query = "DELETE FROM STAFF WHERE ID=?";
+  const query = "DELETE FROM staff WHERE ID=?";
   connection.query(query, [staffID], (error, results) => {
     if (error) {
       console.error("Error executing query: " + error.stack);
@@ -830,10 +830,10 @@ GROUP BY sa.StaffID,WeekNumber
 app.get("/get_staff_personal_information/:id", (req, res) => {
   let values = req.params.id;
   let query = `SELECT
-   STAFF.*,
+   staff.*,
    DATE_FORMAT(DOB,'%m-%d-%Y') as DOB,
    DATE_FORMAT(HireDate,'%m-%d-%Y') as HireDate
-   FROM STAFF WHERE email=?`;
+   FROM staff WHERE email=?`;
   connection.query(query, [values], (error, results) => {
     let dat = results[0];
     dat.assigned = JSON.parse(dat.assigned);
