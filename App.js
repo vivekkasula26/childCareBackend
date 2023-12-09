@@ -779,7 +779,7 @@ app.get("/get_staff_attendance", (req, res) => {
   DATE_FORMAT(CURRENT_DATE() + INTERVAL (4 - WEEKDAY(CURRENT_DATE())) DAY, '%m-%d-%Y') AS LastDateOfWeek,
   COALESCE((SUM(TIMESTAMPDIFF(MINUTE, sa.SignInTime, COALESCE(sa.SignOutTime, NOW()))) / 60), 0) AS HoursWorked,
   FORMAT(COALESCE((SUM(TIMESTAMPDIFF(MINUTE, sa.SignInTime, COALESCE(sa.SignOutTime, NOW()))) / 60) * s.HourlySalary, 0), 2) AS AmountEarned
-FROM Staff s
+FROM staff s
 LEFT JOIN StaffAttendance sa 
   ON s.ID = sa.StaffID
   AND sa.SignInTime >= CURRENT_DATE() - INTERVAL WEEKDAY(CURRENT_DATE()) DAY
@@ -789,6 +789,9 @@ GROUP BY s.ID;
 
   connection.query(query, (err, result) => {
     if (err) {
+      console.error("Error executing query: " + err.stack);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
     }
     res.json({
       success: true,
@@ -811,7 +814,7 @@ app.get("/get_staff_attendance_by_id/:id", (req, res) => {
   (SUM(TIMESTAMPDIFF(MINUTE, sa.SignInTime, COALESCE(sa.SignOutTime, NOW()))) / 60) AS HoursWorked,
  FORMAT((SUM(TIMESTAMPDIFF(MINUTE, sa.SignInTime, COALESCE(sa.SignOutTime, NOW()))) / 60) * s.HourlySalary, 2) AS AmountEarned 
  FROM StaffAttendance sa
-JOIN Staff s ON sa.StaffID = s.ID
+JOIN staff s ON sa.StaffID = s.ID
 WHERE s.email=?
 GROUP BY sa.StaffID,WeekNumber
 `;
