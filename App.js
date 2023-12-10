@@ -739,7 +739,7 @@ app.post("/create_facility_account", (req, res) => {
         return;
       } else {
         let facilityQuery =
-          "INSERT INTO facility(name,address,phoneNumber,licenseNumber,userId) VALUES(?,?,?,?,?)";
+          "INSERT INTO FACILITY(name,address,phoneNumber,licenseNumber,userId) VALUES(?,?,?,?,?)";
         connection.query(
           facilityQuery,
           [
@@ -905,9 +905,10 @@ app.post("/mark_child_logout", (req, res) => {
   let id = req.body.id;
 
   const currentDate = new Date();
+  console.log(currentDate);
 
   connection.query(
-    `UPDATE Studentattendance set SignOutTime = ?
+    `UPDATE studentAttendance set SignOutTime = ?
               WHERE childID = ? AND DATE(SignInTime) = ?
               AND SignOutTime IS NULL`,
     [currentDate, id, currentDate.toISOString().split("T")[0]],
